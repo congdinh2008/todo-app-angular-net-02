@@ -1,1 +1,22 @@
-<p>header works!</p>
+<header class="border-b border-slate-300 shadow-md bg-white">
+    <nav class="navbar flex justify-between items-center w-4/5 mx-auto">
+        <a href="" class="nav-brand flex items-center space-x-4">
+            <img src="./assets/logo.png" alt="" class="w-12">
+            <span class="text-2xl font-bold">Todo App</span>
+        </a>
+        <div class="navbar-menu flex justify-center items-center *:block *:p-4 *:hover:bg-blue-500 *:hover:text-white">
+            <a href="">Home</a>
+            <a href="">Management</a>
+            <a href="">About</a>
+            <a href="">Contact</a>
+        </div>
+        <div class="profile-menu relative">
+            <img src="./assets/logo.png" alt="" class="w-12">
+            <div
+                class="profile-dropdown absolute top-full right-0 bg-white shadow-md w-[250px] rounded-md hidden *:block *:p-4 *:hover:bg-blue-500 *:hover:text-white *:hover:rounded-t-md">
+                <a href="" class="border-b border-slate-100">Cong Dinh</a>
+                <a href="" class="">Logout</a>
+            </div>
+        </div>
+    </nav>
+</header>
