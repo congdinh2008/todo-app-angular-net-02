@@ -1,1 +1,32 @@
-<p>sidebar works!</p>
+<aside class="h-[calc(100vh-56px)] flex flex-col bg-white border-r border-slate-300 shadow-md">
+    <div class="menu-top border-b border-slate-300">
+        <a href="" class="flex items-center space-x-2 p-4 hover:bg-blue-500 hover:text-white">
+            <fa-icon [icon]="faDashboard" class="text-2xl"></fa-icon>
+            <span [ngClass]="isShowSidebar ? 'block': 'hidden'">Dashboard</span>
+        </a>
+    </div>
+    <div class="menu-items flex-grow">
+        <a href="" class="flex items-center space-x-2 p-4 hover:bg-blue-500 hover:text-white">
+            <fa-icon [icon]="faList" class="text-2xl"></fa-icon>
+            <span [ngClass]="isShowSidebar ? 'block': 'hidden'">Category Management</span>
+        </a>
+        <a href="" class="flex items-center space-x-2 p-4 hover:bg-blue-500 hover:text-white">
+            <fa-icon [icon]="faUser" class="text-2xl"></fa-icon>
+            <span [ngClass]="isShowSidebar ? 'block': 'hidden'">User Management</span>
+        </a>
+        <a href="" class="flex items-center space-x-2 p-4 hover:bg-blue-500 hover:text-white">
+            <fa-icon [icon]="faUserShield" class="text-2xl"></fa-icon>
+            <span [ngClass]="isShowSidebar ? 'block': 'hidden'">Role Management</span>
+        </a>
+    </div>
+    <div class="menu-bottom flex justify-between items-center border-t border-slate-300 *:cursor-pointer"
+        [ngClass]="isShowSidebar ? '': 'flex-col'">
+        <a href="" class="flex items-center space-x-2 p-4 hover:bg-blue-500 hover:text-white flex-grow">
+            <fa-icon [icon]="faGear" class="text-2xl"></fa-icon>
+        </a>
+        <button type="button" title="Collapse" (click)="isShowSidebar = !isShowSidebar"
+            class="flex items-center space-x-2 p-4 hover:bg-blue-500 hover:text-white">
+            <fa-icon [icon]="isShowSidebar ? faAngleDoubleLeft: faAngleDoubleRight" class="text-2xl"></fa-icon>
+        </button>
+    </div>
+</aside>
