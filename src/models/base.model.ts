@@ -1,5 +1,5 @@
 export class BaseModel {
-  public id!: number;
+  public id!: string;
   public createdBy!: Date;
   public createdAt!: string;
   public updatedAt!: Date;

@@ -17,23 +17,26 @@ export class CategoryService implements ICategoryService {
     return this.httpClient.get<CategoryModel[]>(this.url);
   }
 
-  search(): Observable<PaginatedResult<CategoryModel>> {
-    throw new Error('Method not implemented.');
-  }
-  
-  getById(id: number): Observable<CategoryModel> {
-    throw new Error('Method not implemented.');
-  }
-  
-  create(data: CategoryModel): Observable<CategoryModel> {
-    throw new Error('Method not implemented.');
-  }
-  
-  update(id: number, data: CategoryModel): Observable<CategoryModel> {
-    throw new Error('Method not implemented.');
+  search(filter: any): Observable<PaginatedResult<CategoryModel>> {
+    return this.httpClient.post<PaginatedResult<CategoryModel>>(
+      this.url,
+      filter
+    );
   }
 
-  delete(id: number): Observable<CategoryModel> {
-    throw new Error('Method not implemented.');
+  getById(id: number): Observable<CategoryModel> {
+    return this.httpClient.get<CategoryModel>(`${this.url}/${id}`);
+  }
+
+  create(data: CategoryModel): Observable<CategoryModel> {
+    return this.httpClient.post<CategoryModel>(this.url, data);
+  }
+
+  update(id: string, data: CategoryModel): Observable<CategoryModel> {
+    return this.httpClient.put<CategoryModel>(`${this.url}/${id}`, data);
+  }
+
+  delete(id: string): Observable<boolean> {
+    return this.httpClient.delete<boolean>(`${this.url}/${id}`);
   }
 }
