@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faAngleDoubleLeft, faAngleDoubleRight, faDashboard, faGear, faList, faUser, faUserShield } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [FontAwesomeModule, CommonModule],
+  imports: [FontAwesomeModule, CommonModule, RouterModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
