@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { CategoryModel } from '../../../../models/category/category.model';
 import {
   FormControl,
@@ -36,6 +36,7 @@ export class CategoryDetailComponent implements OnInit {
   public name: string = '';
 
   @Input() public selectedItem!: CategoryModel | undefined | null;
+  @Output() public onClose: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     @Inject('ICategoryService') private categoryService: ICategoryService
@@ -82,6 +83,9 @@ export class CategoryDetailComponent implements OnInit {
         .subscribe((res) => {
           if (res) {
             console.log('Update success');
+            // Search data again
+            // Close detail
+            this.onClose.emit();
           } else {
             console.log('Update failed');
           }
@@ -91,6 +95,9 @@ export class CategoryDetailComponent implements OnInit {
       this.categoryService.create(data).subscribe((res) => {
         if (res) {
           console.log('Create success');
+          // Search data again
+          // Close detail
+          this.onClose.emit();
         } else {
           console.log('Create failed');
         }

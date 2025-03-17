@@ -47,8 +47,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngIf="categories.length!=0;else emptyData">
-                        <tr *ngFor="let item of categories; let i = index" class="*:p-2 *:border *:border-gray-200">
+                    <ng-container *ngIf="data && data.items.length!=0;else emptyData">
+                        <tr *ngFor="let item of data.items; let i = index" class="*:p-2 *:border *:border-gray-200">
                             <td>{{ i + 1 }}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.description}}</td>
@@ -72,10 +72,59 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer p-4 border-t border-gray-200">
-            Pagination
+        <div class="card-footer p-4 border-t border-gray-200 flex justify-between items-center">
+            <!-- Page Size -->
+            <div class="page-size">
+                <label for="page-size" class="mr-4">Items per page:</label>
+                <select id="page-size" class="p-2 border border-gray-200 rounded-sm" [(ngModel)]="data.pageSize"
+                    (change)="onPageSizeChange($event)">
+                    <option *ngFor="let item of pageSizeOptions" [value]="item">{{item}}</option>
+                </select>
+            </div>
+            <!-- Page Items -->
+            <nav
+                class="page-items flex items-center space-x-2 text-slate-500 *:w-10 *:h-10 *:hover:bg-blue-500 *:hover:text-white *:rounded-full *:border *:border-blue-500 *:cursor-pointer">
+                <button (click)="onPageChange(1)"
+                    class="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-slate-500"
+                    title="First" type="button" [disabled]="currentPage==1">
+                    <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>
+                </button>
+                <button (click)="onPageChange(currentPage-1)"
+                    class="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-slate-500"
+                    title="First" type="button" [disabled]="currentPage==1">
+                    <fa-icon [icon]="faAngleLeft"></fa-icon>
+                </button>
+                <ng-container *ngFor="let item of generatePageItems()">
+                    <button (click)="onPageChange(item)"
+                        class="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-slate-500"
+                        title="First" type="button" [ngClass]="{'bg-blue-500 text-white': item==currentPage}">
+                        {{item}}
+                    </button>
+                </ng-container>
+
+                <button (click)="onPageChange(currentPage+1)"
+                    class="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-slate-500"
+                    title="First" type="button" [disabled]="currentPage==data.totalPages">
+                    <fa-icon [icon]="faAngleRight"></fa-icon>
+                </button>
+                <button (click)="onPageChange(data.totalPages)"
+                    class="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-slate-500"
+                    title="First" type="button" [disabled]="currentPage==data.totalPages">
+                    <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+                </button>
+            </nav>
+            <!-- Page Info -->
+            <div class="page-info">
+                <!-- page 1: pageSize*(pageNumber-1) + 1 - pageSize of totalItem -->
+                <!-- page 2: pageSize*(pageNumber-1) + 1 - pageSize of totalItem -->
+                <!-- page 2: pageSize*(pageNumber-1) + 1 - pageSize of totalItem -->
+                Page {{data.pageSize*(data.pageNumber-1) + 1}} -
+                {{data.pageSize * data.pageNumber > data.totalCount ? data.totalCount :
+                data.pageSize*data.pageNumber}} of {{data.totalCount}}
+            </div>
         </div>
     </div>
     <!-- Details -->
-    <app-category-detail *ngIf="isShowDetail" [selectedItem]="selectedItem"></app-category-detail>
+    <app-category-detail *ngIf="isShowDetail" [selectedItem]="selectedItem"
+        (onClose)="onCloseDetail()"></app-category-detail>
 </section>

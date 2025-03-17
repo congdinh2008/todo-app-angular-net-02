@@ -15,6 +15,10 @@ import {
   IconDefinition,
 } from '@fortawesome/angular-fontawesome';
 import {
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
+  faAngleLeft,
+  faAngleRight,
   faEdit,
   faPlus,
   faRotate,
@@ -23,7 +27,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { CategoryDetailComponent } from '../category-detail/category-detail.component';
 import { OrderDirection, SearchModel } from '../../../../models/search.model';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { PaginatedResult } from '../../../../models/paginated-result.model';
 
 @Component({
   selector: 'app-category-list',
@@ -33,6 +43,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
     FontAwesomeModule,
     CategoryDetailComponent,
     ReactiveFormsModule,
+    FormsModule,
   ],
   templateUrl: './category-list.component.html',
   styleUrl: './category-list.component.css',
@@ -44,6 +55,10 @@ export class CategoryListComponent implements OnInit {
   public faPlus: IconDefinition = faPlus;
   public faSearch: IconDefinition = faSearch;
   public faRotate: IconDefinition = faRotate;
+  public faAngleLeft: IconDefinition = faAngleLeft;
+  public faAngleDoubleLeft: IconDefinition = faAngleDoubleLeft;
+  public faAngleRight: IconDefinition = faAngleRight;
+  public faAngleDoubleRight: IconDefinition = faAngleDoubleRight;
 
   //#endregion
 
@@ -52,15 +67,18 @@ export class CategoryListComponent implements OnInit {
   public filter: SearchModel = {
     keyword: '',
     pageNumber: 1,
-    pageSize: 10,
+    pageSize: 5,
     orderBy: 'name',
     orderDirection: OrderDirection.ASC,
     includeInactive: false,
   };
+  public currentPage: number = 1;
+  public currentPageSize: number = 5;
+  public pageSizeOptions: number[] = [5, 10, 20, 50];
 
   public searchForm!: FormGroup;
 
-  public categories: CategoryModel[] = [];
+  public data!: PaginatedResult<CategoryModel>;
 
   constructor(
     @Inject('ICategoryService') private categoryService: ICategoryService
@@ -78,10 +96,8 @@ export class CategoryListComponent implements OnInit {
   }
 
   private searchData(): void {
-    this.categoryService.search(this.filter).subscribe((data) => {
-      this.categories = data.items;
-      console.log(data);
-      
+    this.categoryService.search(this.filter).subscribe((res) => {
+      this.data = res;
     });
   }
 
@@ -97,8 +113,10 @@ export class CategoryListComponent implements OnInit {
   public edit(id: string): void {
     this.isShowDetail = false;
     setTimeout(() => {
-      this.selectedItem = this.categories.find((x) => x.id === id);
+      this.selectedItem = this.data.items.find((x) => x.id === id);
       this.isShowDetail = true;
+
+      // Scroll into view
     }, 150);
   }
 
@@ -107,12 +125,44 @@ export class CategoryListComponent implements OnInit {
     setTimeout(() => {
       this.selectedItem = null;
       this.isShowDetail = true;
+
+      // Scroll into view
     }, 150);
   }
 
   public onSubmit(): void {
     // Gan gia tri tu form vao filter => Keyword
     Object.assign(this.filter, this.searchForm.value);
+    this.searchData();
+  }
+
+  public onCloseDetail(): void {
+    console.log('Event send from detail');
+    this.isShowDetail = false;
+    this.searchData();
+  }
+
+  public generatePageItems(): number[] {
+    if (!this.data) {
+      return [];
+    }
+
+    const totalPage = this.data.totalPages;
+    return Array.from({ length: totalPage }, (_, i) => i + 1);
+  }
+
+  public onPageChange(page: number): void {
+    this.filter.pageNumber = page;
+    if (page < 0 || page > this.data.totalPages || page === this.currentPage) {
+      return;
+    }
+
+    this.currentPage = page;
+    this.searchData();
+  }
+
+  public onPageSizeChange(event: any): void {
+    this.filter.pageSize = event.target.value;
     this.searchData();
   }
 }
