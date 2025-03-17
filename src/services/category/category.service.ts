@@ -19,7 +19,7 @@ export class CategoryService implements ICategoryService {
 
   search(filter: any): Observable<PaginatedResult<CategoryModel>> {
     return this.httpClient.post<PaginatedResult<CategoryModel>>(
-      this.url,
+      this.url + '/search',
       filter
     );
   }

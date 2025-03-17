@@ -35,7 +35,7 @@ export class CategoryDetailComponent implements OnInit {
   public form!: FormGroup;
   public name: string = '';
 
-  @Input() public selectedItem?: CategoryModel;
+  @Input() public selectedItem!: CategoryModel | undefined | null;
 
   constructor(
     @Inject('ICategoryService') private categoryService: ICategoryService

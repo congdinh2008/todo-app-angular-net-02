@@ -17,7 +17,7 @@
                     <label for="name" class="block mb-1.5">Description</label>
                     <textarea type="text" class="form-control w-full p-2 rounded-sm border border-gray-200"
                         title="description" placeholder="Enter category description" id="description"
-                        formControlName="description">{{selectedItem?.description}}</textarea>
+                        formControlName="description"></textarea>
                     <span *ngIf="form.get('description')?.invalid && form.get('description')?.touched"
                         class="text-red-500 text-sm">Description must be less than 500 characters</span>
                 </div>
