@@ -1,0 +1,38 @@
+<section>
+    <div class="card bg-white rounded-md shadow-md">
+        <div class="card-footer p-4 border-t border-gray-200">
+            <h2 class="text-xl font-semibold">{{selectedItem ? 'Edit': 'Create'}} Category</h2>
+        </div>
+        <!-- Template Driven Form -->
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="card-body p-4 border-y border-gray-200">
+                <div class="form-group">
+                    <label for="name" class="block mb-1.5">Name</label>
+                    <input type="text" class="form-control w-full p-2 rounded-sm border border-gray-200" id="name"
+                        placeholder="Enter category name" formControlName="name" required>
+                    <span *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+                        class="text-red-500 text-sm">Name is required</span>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="block mb-1.5">Description</label>
+                    <textarea type="text" class="form-control w-full p-2 rounded-sm border border-gray-200"
+                        title="description" placeholder="Enter category description" id="description"
+                        formControlName="description">{{selectedItem?.description}}</textarea>
+                    <span *ngIf="form.get('description')?.invalid && form.get('description')?.touched"
+                        class="text-red-500 text-sm">Description must be less than 500 characters</span>
+                </div>
+            </div>
+            <div class="card-footer p-4 flex justify-end space-x-4">
+                <button type="reset" class="p-2 px-4 rounded-full bg-slate-200 hover:bg-slate-300 cursor-pointer">
+                    <fa-icon [icon]="faRotate"></fa-icon>
+                    Reset
+                </button>
+                <button type="submit"
+                    class="p-2 px-4 rounded-full bg-blue-500 text-white hover:bg-blue-700 cursor-pointer">
+                    <fa-icon [icon]="faSave" class="text-white"></fa-icon>
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

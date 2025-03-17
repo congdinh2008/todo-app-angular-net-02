@@ -1,0 +1,77 @@
+<section>
+    <!-- Search -->
+    <div class="card bg-white rounded-md shadow-md">
+        <div class="card-header p-4">
+            <h1 class="text-2xl font-bold">Category Management</h1>
+        </div>
+        <div class="card-body p-4 border-y border-gray-200">
+            Form Search
+        </div>
+        <div class="card-footer p-4 flex justify-between">
+            <button type="button" class="p-2 px-4 rounded-full bg-green-500 text-white hover:bg-green-700 cursor-pointer"
+                (click)="create()">
+                <fa-icon [icon]="faPlus" class="text-white"></fa-icon>
+                Create
+            </button>
+            <div class="search-actions space-x-4">
+                <button type="button"
+                    class="p-2 px-4 rounded-full bg-slate-200 hover:bg-slate-300 cursor-pointer"
+                    (click)="create()">
+                    <fa-icon [icon]="faRotate"></fa-icon>
+                    Cancel
+                </button>
+                <button type="button"
+                    class="p-2 px-4 rounded-full bg-blue-500 text-white hover:bg-blue-700 cursor-pointer"
+                    (click)="create()">
+                    <fa-icon [icon]="faSearch" class="text-white"></fa-icon>
+                    Search
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- List -->
+    <div class="card bg-white my-4 rounded-md shadow-md">
+        <div class="card-body p-4">
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="*:p-2 *:border *:border-gray-200">
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="categories.length!=0;else emptyData">
+                        <tr *ngFor="let item of categories; let i = index" class="*:p-2 *:border *:border-gray-200">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.description}}</td>
+                            <td>
+                                <div class="flex space-x-2 *:cursor-pointer">
+                                    <button class="border-0" title="Edit" type="button" (click)="edit(item.id)">
+                                        <fa-icon [icon]="faEdit" class="text-blue-500 hover:text-blue-700"></fa-icon>
+                                    </button>
+                                    <button class="border-0" title="Edit" type="button" (click)="delete(item.id)">
+                                        <fa-icon [icon]="faTrash" class="text-red-500 hover:text-red-700"></fa-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-template #emptyData>
+                        <tr>
+                            <td colspan="4" class="text-center">No data found</td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer p-4 border-t border-gray-200">
+            Pagination
+        </div>
+    </div>
+    <!-- Details -->
+    <app-category-detail *ngIf="isShowDetail" [selectedItem]="selectedItem"></app-category-detail>
+</section>
