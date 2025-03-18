@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
-import { faAngleDoubleLeft, faAngleDoubleRight, faDashboard, faGear, faList, faUser, faUserShield } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleLeft, faAngleDoubleRight, faBox, faDashboard, faGear, faList, faUser, faUserShield } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,6 +19,7 @@ export class SidebarComponent {
   public faAngleDoubleRight: IconDefinition = faAngleDoubleRight;
   public faUser: IconDefinition = faUser;
   public faUserShield: IconDefinition = faUserShield;
+  public faBox: IconDefinition = faBox;
 
   //#endregion
   public isShowSidebar: boolean = false;

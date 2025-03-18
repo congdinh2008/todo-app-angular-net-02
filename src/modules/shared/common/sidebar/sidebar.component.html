@@ -10,6 +10,10 @@
             <fa-icon [icon]="faList" class="text-2xl"></fa-icon>
             <span [ngClass]="isShowSidebar ? 'block': 'hidden'">Category Management</span>
         </a>
+        <a routerLink="/admin/supplier" class="flex items-center space-x-2 p-4 hover:bg-blue-500 hover:text-white">
+            <fa-icon [icon]="faBox" class="text-2xl"></fa-icon>
+            <span [ngClass]="isShowSidebar ? 'block': 'hidden'">Supplier Management</span>
+        </a>
         <a routerLink="/admin/user" class="flex items-center space-x-2 p-4 hover:bg-blue-500 hover:text-white">
             <fa-icon [icon]="faUser" class="text-2xl"></fa-icon>
             <span [ngClass]="isShowSidebar ? 'block': 'hidden'">User Management</span>

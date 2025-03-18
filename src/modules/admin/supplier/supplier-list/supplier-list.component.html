@@ -1,0 +1,46 @@
+<section>
+    <!-- Search -->
+    <div class="card bg-white rounded-md shadow-md">
+        <div class="card-header p-4">
+            <h1 class="text-2xl font-bold">Supplier Management</h1>
+        </div>
+        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+            <div class="card-body p-4 border-y border-gray-200">
+                <div class="form-group">
+                    <label for="name" class="block mb-1.5">Keyword</label>
+                    <input type="text" class="form-control w-full p-2 rounded-sm border border-gray-200" id="keyword"
+                        placeholder="Enter keyword" formControlName="keyword">
+                </div>
+            </div>
+            <div class="card-footer p-4 flex justify-between">
+                <button type="button"
+                    class="p-2 px-4 rounded-full bg-green-500 text-white hover:bg-green-700 cursor-pointer"
+                    (click)="create()">
+                    <fa-icon [icon]="faPlus" class="text-white"></fa-icon>
+                    Create
+                </button>
+                <div class="search-actions space-x-4">
+                    <button type="reset" class="p-2 px-4 rounded-full bg-slate-200 hover:bg-slate-300 cursor-pointer">
+                        <fa-icon [icon]="faRotate"></fa-icon>
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="p-2 px-4 rounded-full bg-blue-500 text-white hover:bg-blue-700 cursor-pointer">
+                        <fa-icon [icon]="faSearch" class="text-white"></fa-icon>
+                        Search
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- List -->
+    <app-table [isShowNumber]="false" [columns]="columns" [data]="data" [pageSizeOptions]="pageSizeOptions"
+        [currentPageSize]="currentPageSize" [currentPage]="currentPage" (onEdit)="edit($event)"
+        (onDelete)="delete($event)" (onPageChange)="onPageChange($event)" (onPageSizeChange)="onPageSizeChange($event)">
+    </app-table>
+
+    <!-- Details -->
+    <app-supplier-detail *ngIf="isShowDetail" [selectedItem]="selectedItem"
+        (onClose)="onCloseDetail()"></app-supplier-detail>
+</section>

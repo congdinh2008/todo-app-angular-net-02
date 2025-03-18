@@ -4,8 +4,8 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { CategoryModel } from '../../../../models/category/category.model';
-import { ICategoryService } from '../../../../services/category/category-service.interface';
+import { SupplierModel } from '../../../../models/supplier/supplier.model';
+import { ISupplierService } from '../../../../services/supplier/supplier-service.interface';
 import { ServicesModule } from '../../../../services/services.module';
 import {
   FontAwesomeModule,
@@ -16,7 +16,7 @@ import {
   faRotate,
   faSearch,
 } from '@fortawesome/free-solid-svg-icons';
-import { CategoryDetailComponent } from '../category-detail/category-detail.component';
+import { SupplierDetailComponent } from '../supplier-detail/supplier-detail.component';
 import { OrderDirection, SearchModel } from '../../../../models/search.model';
 import {
   FormControl,
@@ -29,20 +29,20 @@ import { TableComponent } from '../../../../core/components/table/table.componen
 import { TableColumn } from '../../../../core/models/table/table-column.model';
 
 @Component({
-  selector: 'app-category-list',
+  selector: 'app-supplier-list',
   imports: [
     CommonModule,
     ServicesModule,
     FontAwesomeModule,
-    CategoryDetailComponent,
+    SupplierDetailComponent,
     ReactiveFormsModule,
     FormsModule,
     TableComponent,
   ],
-  templateUrl: './category-list.component.html',
-  styleUrl: './category-list.component.css',
+  templateUrl: './supplier-list.component.html',
+  styleUrl: './supplier-list.component.css',
 })
-export class CategoryListComponent implements OnInit {
+export class SupplierListComponent implements OnInit {
   //#region Font Awesome icons
   public faPlus: IconDefinition = faPlus;
   public faSearch: IconDefinition = faSearch;
@@ -51,7 +51,7 @@ export class CategoryListComponent implements OnInit {
   //#endregion
 
   public isShowDetail: boolean = false;
-  public selectedItem!: CategoryModel | undefined | null;
+  public selectedItem!: SupplierModel | undefined | null;
   public filter: SearchModel = {
     keyword: '',
     pageNumber: 1,
@@ -66,15 +66,17 @@ export class CategoryListComponent implements OnInit {
 
   public searchForm!: FormGroup;
 
-  public data!: PaginatedResult<CategoryModel>;
+  public data!: PaginatedResult<SupplierModel>;
 
   public columns: TableColumn[] = [
     { name: 'Name', value: 'name' },
-    { name: 'Description', value: 'description' },
+    { name: 'Address', value: 'address' },
+    { name: 'Phone Number', value: 'phoneNumber' },
+    { name: 'Is Active', value: 'isActive' },
   ];
 
   constructor(
-    @Inject('ICategoryService') private categoryService: ICategoryService
+    @Inject('ISupplierService') private supplierService: ISupplierService
   ) {}
 
   ngOnInit(): void {
@@ -89,13 +91,13 @@ export class CategoryListComponent implements OnInit {
   }
 
   private searchData(): void {
-    this.categoryService.search(this.filter).subscribe((res) => {
+    this.supplierService.search(this.filter).subscribe((res) => {
       this.data = res;
     });
   }
 
   public delete(id: string): void {
-    this.categoryService.delete(id).subscribe((data) => {
+    this.supplierService.delete(id).subscribe((data) => {
       // Neu xoa duoc thi goi lai ham getData de load lai du lieu
       if (data) {
         this.searchData();
