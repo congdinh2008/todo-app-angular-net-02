@@ -27,6 +27,7 @@ import {
 import { PaginatedResult } from '../../../../models/paginated-result.model';
 import { TableComponent } from '../../../../core/components/table/table.component';
 import { TableColumn } from '../../../../core/models/table/table-column.model';
+import { MasterDataListComponent } from '../../master-data/master-data.component';
 
 @Component({
   selector: 'app-supplier-list',
@@ -42,17 +43,11 @@ import { TableColumn } from '../../../../core/models/table/table-column.model';
   templateUrl: './supplier-list.component.html',
   styleUrl: './supplier-list.component.css',
 })
-export class SupplierListComponent implements OnInit {
-  //#region Font Awesome icons
-  public faPlus: IconDefinition = faPlus;
-  public faSearch: IconDefinition = faSearch;
-  public faRotate: IconDefinition = faRotate;
-
-  //#endregion
-
-  public isShowDetail: boolean = false;
-  public selectedItem!: SupplierModel | undefined | null;
-  public filter: SearchModel = {
+export class SupplierListComponent
+  extends MasterDataListComponent<SupplierModel>
+  implements OnInit
+{
+  public override filter: SearchModel = {
     keyword: '',
     pageNumber: 1,
     pageSize: 5,
@@ -60,15 +55,7 @@ export class SupplierListComponent implements OnInit {
     orderDirection: OrderDirection.ASC,
     includeInactive: true,
   };
-  public currentPage: number = 1;
-  public currentPageSize: number = 5;
-  public pageSizeOptions: number[] = [5, 10, 20, 50];
-
-  public searchForm!: FormGroup;
-
-  public data!: PaginatedResult<SupplierModel>;
-
-  public columns: TableColumn[] = [
+  public override columns: TableColumn[] = [
     { name: 'Name', value: 'name' },
     { name: 'Address', value: 'address' },
     { name: 'Phone Number', value: 'phoneNumber' },
@@ -77,20 +64,17 @@ export class SupplierListComponent implements OnInit {
 
   constructor(
     @Inject('ISupplierService') private supplierService: ISupplierService
-  ) {}
-
-  ngOnInit(): void {
-    this.createForm();
-    this.searchData();
+  ) {
+    super();
   }
 
-  private createForm(): void {
+  protected override createForm(): void {
     this.searchForm = new FormGroup({
       keyword: new FormControl(''),
     });
   }
 
-  private searchData(): void {
+  protected override searchData(): void {
     this.supplierService.search(this.filter).subscribe((res) => {
       this.data = res;
     });
@@ -123,32 +107,5 @@ export class SupplierListComponent implements OnInit {
 
       // Scroll into view
     }, 150);
-  }
-
-  public onSubmit(): void {
-    // Gan gia tri tu form vao filter => Keyword
-    Object.assign(this.filter, this.searchForm.value);
-    this.searchData();
-  }
-
-  public onCloseDetail(): void {
-    console.log('Event send from detail');
-    this.isShowDetail = false;
-    this.searchData();
-  }
-
-  public onPageChange(page: number): void {
-    this.filter.pageNumber = page;
-    if (page < 0 || page > this.data.totalPages || page === this.currentPage) {
-      return;
-    }
-
-    this.currentPage = page;
-    this.searchData();
-  }
-
-  public onPageSizeChange(event: any): void {
-    this.filter.pageSize = event.target.value;
-    this.searchData();
   }
 }

@@ -3,7 +3,6 @@ import { CategoryModel } from '../../../../models/category/category.model';
 import {
   FormControl,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -33,7 +32,6 @@ export class CategoryDetailComponent implements OnInit {
   public faRotate: IconDefinition = faRotate;
 
   public form!: FormGroup;
-  public name: string = '';
 
   @Input() public selectedItem!: CategoryModel | undefined | null;
   @Output() public onClose: EventEmitter<any> = new EventEmitter<any>();
@@ -44,6 +42,7 @@ export class CategoryDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.updateForm();
   }
 
   public createForm() {
@@ -55,14 +54,9 @@ export class CategoryDetailComponent implements OnInit {
       ]),
       description: new FormControl('', [Validators.maxLength(500)]),
     });
-
-    this.updateForm();
   }
   private updateForm(): void {
-    this.form.patchValue({
-      name: this.selectedItem?.name,
-      description: this.selectedItem?.description,
-    });
+    this.form.patchValue(this.selectedItem as any);
   }
 
   public onSubmit(): void {

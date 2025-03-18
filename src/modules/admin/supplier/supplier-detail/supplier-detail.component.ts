@@ -3,7 +3,6 @@ import { SupplierModel } from '../../../../models/supplier/supplier.model';
 import {
   FormControl,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -33,7 +32,6 @@ export class SupplierDetailComponent implements OnInit {
   public faRotate: IconDefinition = faRotate;
 
   public form!: FormGroup;
-  public name: string = '';
 
   @Input() public selectedItem!: SupplierModel | undefined | null;
   @Output() public onClose: EventEmitter<any> = new EventEmitter<any>();
@@ -44,6 +42,8 @@ export class SupplierDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.updateForm();
+
   }
 
   public createForm() {
@@ -57,8 +57,6 @@ export class SupplierDetailComponent implements OnInit {
       phoneNumber: new FormControl('', [Validators.maxLength(12)]),
       isActive: new FormControl(true),
     });
-
-    this.updateForm();
   }
   private updateForm(): void {
     this.form.patchValue(this.selectedItem as any);
