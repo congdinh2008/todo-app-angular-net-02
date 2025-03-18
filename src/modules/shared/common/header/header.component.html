@@ -14,13 +14,22 @@
             <a routerLink="/about">About</a>
             <a routerLink="/contact">Contact</a>
         </div>
-        <div class="profile-menu relative cursor-pointer" (click)="isShowProfileDropdown = !isShowProfileDropdown">
-            <img src="./assets/avatars/avatar-1.png" alt="" class="w-12 border border-blue-500 rounded-full">
-            <div class="profile-dropdown absolute top-full right-0 bg-white shadow-md w-[250px] rounded-md *:block *:p-4 *:hover:bg-blue-500 *:hover:text-white "
-                [ngClass]="{'hidden': !isShowProfileDropdown}">
-                <a href="" class="border-b border-slate-100 hover:rounded-t-md">Cong Dinh</a>
-                <a href="" class="hover:rounded-b-md">Logout</a>
+        <ng-container *ngIf="isAuthenticated;else unAuthenticated">
+            <div class="profile-menu relative cursor-pointer" (click)="isShowProfileDropdown = !isShowProfileDropdown">
+                <img src="./assets/avatars/avatar-1.png" alt="" class="w-12 border border-blue-500 rounded-full">
+                <div class="profile-dropdown absolute top-full right-0 bg-white shadow-md w-[250px] rounded-md *:block *:p-4 *:hover:bg-blue-500 *:hover:text-white "
+                    [ngClass]="{'hidden': !isShowProfileDropdown}">
+                    <a href="" class="border-b border-slate-100 hover:rounded-t-md">Cong Dinh</a>
+                    <a href="" class="hover:rounded-b-md">Logout</a>
+                </div>
             </div>
-        </div>
+        </ng-container>
+
+        <ng-template #unAuthenticated>
+            <div class="profile-menu cursor-pointer md:flex justify-center items-center *:block *:p-4 *:hover:bg-blue-500 *:hover:text-white">
+                <a routerLink="/auth/login">Login</a>
+                <a routerLink="/auth/register">Register</a>
+            </div>
+        </ng-template>
     </nav>
 </header>

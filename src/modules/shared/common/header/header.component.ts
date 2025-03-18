@@ -20,4 +20,6 @@ export class HeaderComponent {
   //#endregion
   public isShowProfileDropdown: boolean = false;
   public isShowMainMenu: boolean = false;
+
+  public isAuthenticated: boolean = false;
 }
