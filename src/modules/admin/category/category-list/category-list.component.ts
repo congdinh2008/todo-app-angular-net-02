@@ -34,6 +34,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { PaginatedResult } from '../../../../models/paginated-result.model';
+import { TableComponent } from '../../../../core/components/table/table.component';
+import { TableColumn } from '../../../../core/models/table/table-column.model';
 
 @Component({
   selector: 'app-category-list',
@@ -44,6 +46,7 @@ import { PaginatedResult } from '../../../../models/paginated-result.model';
     CategoryDetailComponent,
     ReactiveFormsModule,
     FormsModule,
+    TableComponent,
   ],
   templateUrl: './category-list.component.html',
   styleUrl: './category-list.component.css',
@@ -79,6 +82,11 @@ export class CategoryListComponent implements OnInit {
   public searchForm!: FormGroup;
 
   public data!: PaginatedResult<CategoryModel>;
+
+  public columns: TableColumn[] = [
+    { name: 'Name', value: 'name' },
+    { name: 'Description', value: 'description' },
+  ];
 
   constructor(
     @Inject('ICategoryService') private categoryService: ICategoryService
