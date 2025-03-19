@@ -17,6 +17,7 @@ import {
 import { TableComponent } from '../../../../core/components/table/table.component';
 import { TableColumn } from '../../../../core/models/table/table-column.model';
 import { MasterDataListComponent } from '../../master-data/master-data.component';
+import { CATEGORY_SERVICE } from '../../../../constants/injection.constant';
 
 @Component({
   selector: 'app-category-list',
@@ -42,7 +43,7 @@ export class CategoryListComponent
   ];
 
   constructor(
-    @Inject('ICategoryService') private categoryService: ICategoryService
+    @Inject(CATEGORY_SERVICE) private categoryService: ICategoryService
   ) {
     super();
   }

@@ -37,9 +37,9 @@ export class HeaderComponent {
       }
     });
 
-    this.authService.getUserInformationFromAccessToken().subscribe((res) => {
-      console.log(res);
-    });
+    // this.authService.getUserInformationFromAccessToken().subscribe((res) => {
+    //   console.log(res);
+    // });
   }
 
   public logout(): void {

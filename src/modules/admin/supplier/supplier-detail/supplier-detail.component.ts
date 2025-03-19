@@ -14,6 +14,7 @@ import { faRotate, faSave } from '@fortawesome/free-solid-svg-icons';
 import { ISupplierService } from '../../../../services/supplier/supplier-service.interface';
 import { ServicesModule } from '../../../../services/services.module';
 import { CommonModule } from '@angular/common';
+import { SUPPLIER_SERVICE } from '../../../../constants/injection.constant';
 
 @Component({
   selector: 'app-supplier-detail',
@@ -37,7 +38,7 @@ export class SupplierDetailComponent implements OnInit {
   @Output() public onClose: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
-    @Inject('ISupplierService') private supplierService: ISupplierService
+    @Inject(SUPPLIER_SERVICE) private supplierService: ISupplierService
   ) {}
 
   ngOnInit(): void {

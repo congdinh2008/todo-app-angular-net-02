@@ -14,6 +14,7 @@ import { faRotate, faSave } from '@fortawesome/free-solid-svg-icons';
 import { ICategoryService } from '../../../../services/category/category-service.interface';
 import { ServicesModule } from '../../../../services/services.module';
 import { CommonModule } from '@angular/common';
+import { CATEGORY_SERVICE } from '../../../../constants/injection.constant';
 
 @Component({
   selector: 'app-category-detail',
@@ -37,7 +38,7 @@ export class CategoryDetailComponent implements OnInit {
   @Output() public onClose: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
-    @Inject('ICategoryService') private categoryService: ICategoryService
+    @Inject(CATEGORY_SERVICE) private categoryService: ICategoryService
   ) {}
 
   ngOnInit(): void {

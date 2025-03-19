@@ -9,13 +9,7 @@ import { ISupplierService } from '../../../../services/supplier/supplier-service
 import { ServicesModule } from '../../../../services/services.module';
 import {
   FontAwesomeModule,
-  IconDefinition,
 } from '@fortawesome/angular-fontawesome';
-import {
-  faPlus,
-  faRotate,
-  faSearch,
-} from '@fortawesome/free-solid-svg-icons';
 import { SupplierDetailComponent } from '../supplier-detail/supplier-detail.component';
 import { OrderDirection, SearchModel } from '../../../../models/search.model';
 import {
@@ -24,10 +18,10 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { PaginatedResult } from '../../../../models/paginated-result.model';
 import { TableComponent } from '../../../../core/components/table/table.component';
 import { TableColumn } from '../../../../core/models/table/table-column.model';
 import { MasterDataListComponent } from '../../master-data/master-data.component';
+import { SUPPLIER_SERVICE } from '../../../../constants/injection.constant';
 
 @Component({
   selector: 'app-supplier-list',
@@ -63,7 +57,7 @@ export class SupplierListComponent
   ];
 
   constructor(
-    @Inject('ISupplierService') private supplierService: ISupplierService
+    @Inject(SUPPLIER_SERVICE) private supplierService: ISupplierService
   ) {
     super();
   }

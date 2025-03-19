@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoryService } from './category/category.service';
 import { SupplierService } from './supplier/supplier.service';
+import { CATEGORY_SERVICE, SUPPLIER_SERVICE } from '../constants/injection.constant';
 
 
 
@@ -13,12 +14,12 @@ import { SupplierService } from './supplier/supplier.service';
   providers:[
     // CategoryService
     {
-      provide: 'ICategoryService',
+      provide: CATEGORY_SERVICE,
       useClass: CategoryService
     },
     // SupplierService
     {
-      provide: 'ISupplierService',
+      provide: SUPPLIER_SERVICE,
       useClass: SupplierService
     }
   ]

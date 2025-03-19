@@ -65,7 +65,6 @@ export class AuthService implements IAuthService {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
       const payload = JSON.parse(atob(accessToken.split('.')[1]));
-      console.log(payload);
       const userInformation: UserInformation = {
         id: payload.nameid,
         email: payload.email,
