@@ -5,6 +5,13 @@ import { OrderDirection, SearchModel } from '../../../models/search.model';
 import { PaginatedResult } from '../../../models/paginated-result.model';
 import { TableColumn } from '../../../core/models/table/table-column.model';
 
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-master-data-list',
+  templateUrl: './master-data.component.html',
+  styleUrls: ['./master-data.component.css'],
+})
 export class MasterDataListComponent<T> {
   //#region Font Awesome icons
   public faPlus: IconDefinition = faPlus;

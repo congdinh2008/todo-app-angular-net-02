@@ -2,26 +2,67 @@
     <h1 class="text-2xl font-bold text-center">Register</h1>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="form-group mb-4">
+            <label for="firstName" class="block mb-1.5">First Name</label>
+            <input type="text" class="form-control w-full p-2 rounded-sm border border-gray-200" id="firstName"
+                placeholder="Enter first name" formControlName="firstName" required>
+            <span *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched" class="text-red-500 text-sm">
+                First name is required
+            </span>
+        </div>
+        <div class="form-group mb-4">
+            <label for="lastName" class="block mb-1.5">Last Name</label>
+            <input type="text" class="form-control w-full p-2 rounded-sm border border-gray-200" id="lastName"
+                placeholder="Enter last name" formControlName="lastName" required>
+            <span *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched" class="text-red-500 text-sm">
+                Last name is required</span>
+        </div>
+        <div class="form-group mb-4">
+            <label for="email" class="block mb-1.5">Email</label>
+            <input type="email" class="form-control w-full p-2 rounded-sm border border-gray-200" id="email"
+                placeholder="Enter email" formControlName="email" required>
+            <span *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="text-red-500 text-sm">
+                Email is required</span>
+        </div>
+        <div class="form-group mb-4">
+            <label for="dateOfBirth" class="block mb-1.5">Date of Birth</label>
+            <input type="date" class="form-control w-full p-2 rounded-sm border border-gray-200" id="dateOfBirth"
+                formControlName="dateOfBirth">
+        </div>
+        <div class="form-group mb-4">
             <label for="username" class="block mb-1.5">Username</label>
             <input type="text" class="form-control w-full p-2 rounded-sm border border-gray-200" id="username"
                 placeholder="Enter username" formControlName="username" required>
-            <span *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="text-red-500 text-sm">Username
-                is
-                required</span>
+            <span *ngIf="form.get('username')?.invalid && form.get('username')?.touched" class="text-red-500 text-sm">
+                Username is required</span>
         </div>
         <div class="form-group mb-4">
-            <label for="name" class="block mb-1.5">Password</label>
+            <label for="password" class="block mb-1.5">Password</label>
             <input type="password" class="form-control w-full p-2 rounded-sm border border-gray-200" id="password"
                 placeholder="Enter password" formControlName="password" required>
-            <span *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
-                class="text-red-500 text-sm">password is
-                required</span>
+            <span *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="text-red-500 text-sm">
+                Password is required
+            </span>
         </div>
+        <div class="form-group mb-4">
+            <label for="confirm-pasword" class="block mb-1.5">Confirm Password</label>
+            <input type="password" class="form-control w-full p-2 rounded-sm border border-gray-200"
+                id="confirm-pasword" placeholder="Enter Confirm Password" formControlName="confirmPassword" required>
+            <span *ngIf="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched"
+                class="text-red-500 text-sm">
+                Confirm password is required
+            </span>
+        </div>
+        <div class="form-group mb-4">
+            <label for="address" class="block mb-1.5">Address</label>
+            <input type="text" class="form-control w-full p-2 rounded-sm border border-gray-200" id="address"
+                placeholder="Enter address" formControlName="address">
+        </div>
+
 
         <div class="form-group mb-4">
             <button type="submit"
                 class="p-2 px-4 w-full rounded-full bg-blue-500 text-white hover:bg-blue-700 cursor-pointer">
-                Login
+                Register
             </button>
         </div>
 

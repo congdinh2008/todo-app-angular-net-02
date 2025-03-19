@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   FontAwesomeModule,
-  IconDefinition
+  IconDefinition,
 } from '@fortawesome/angular-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { IAuthService } from '../../../../services/auth/auth-service.interface';
+import { UserInformation } from '../../../../models/auth/user-information.model';
 
 @Component({
   selector: 'app-header',
@@ -22,4 +24,25 @@ export class HeaderComponent {
   public isShowMainMenu: boolean = false;
 
   public isAuthenticated: boolean = false;
+  public currentUser: UserInformation | null = null;
+
+  constructor(@Inject('IAuthService') private authService: IAuthService) {
+    this.authService.isAuthenticated().subscribe((res) => {
+      this.isAuthenticated = res;
+    });
+
+    this.authService.getUserInformation().subscribe((res) => {
+      if (res) {
+        this.currentUser = res;
+      }
+    });
+
+    this.authService.getUserInformationFromAccessToken().subscribe((res) => {
+      console.log(res);
+    });
+  }
+
+  public logout(): void {
+    this.authService.logout();
+  }
 }

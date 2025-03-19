@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { IAuthService } from '../../../services/auth/auth-service.interface';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,17 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 })
 export class LoginComponent implements OnInit {
   public form!: FormGroup;
+
+  constructor(
+    @Inject('IAuthService') private authService: IAuthService,
+    private router: Router
+  ) {
+    this.authService.isAuthenticated().subscribe((res) => {
+      if (res) {
+        this.router.navigate(['/']);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -37,5 +49,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public onSubmit(): void {}
+  public onSubmit(): void {
+    this.authService.login(this.form.value).subscribe((response) => {
+      if (response) {
+        // Redirect to home page
+        this.router.navigate(['/']);
+      }
+    });
+  }
 }
