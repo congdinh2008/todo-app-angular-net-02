@@ -35,6 +35,9 @@ export class AuthService implements IAuthService {
       this._userInformation.next(JSON.parse(userInformation));
     }
   }
+  getAccessToken(): string {
+    return localStorage.getItem('accessToken') || '';
+  }
 
   register(registerRequest: RegisterRequest): Observable<LoginResponse> {
     return this.httpClient

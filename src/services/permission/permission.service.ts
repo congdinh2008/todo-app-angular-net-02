@@ -13,6 +13,10 @@ export class PermissionService implements IPermissionService {
     private router: Router
   ) {}
 
+  getAccessToken(): string {
+    return this.authService.getAccessToken();
+  }
+
   isUnauthenticated(): boolean {
     // Neu user da dang nhap => redirect ve trang chu
     this.authService.isAuthenticated().subscribe((res) => {

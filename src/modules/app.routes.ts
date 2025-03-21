@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { CustomerLayoutComponent } from './shared/layouts/customer-layout/customer-layout.component';
 import { AdminLayoutComponent } from './shared/layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
-import { authenticatedGuard } from '../guards/authenticated.guard';
+import { canActivateTeam } from '../guards/authenticated.guard';
 
 export const routes: Routes = [
   {
@@ -14,7 +14,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    canActivate: [authenticatedGuard],
+    canActivate: [canActivateTeam],
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
   },
