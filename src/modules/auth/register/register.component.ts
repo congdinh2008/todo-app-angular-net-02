@@ -9,6 +9,7 @@ import {
 import { Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IAuthService } from '../../../services/auth/auth-service.interface';
+import { AUTH_SERVICE } from '../../../constants/injection.constant';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,7 @@ export class RegisterComponent implements OnInit {
   public form!: FormGroup;
 
   constructor(
-    @Inject('IAuthService') private authService: IAuthService,
+    @Inject(AUTH_SERVICE) private authService: IAuthService,
     private router: Router
   ) {}
 

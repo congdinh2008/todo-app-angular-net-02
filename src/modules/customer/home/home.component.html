@@ -1,5 +1,7 @@
-<section>
-    <!-- Product List -->
+<section class="flex flex-wrap">
+    <div *ngFor="let item of data" class="item w-1/4 p-4">
+        <app-product-overview [item]="item"></app-product-overview>
+    </div>
 </section>
 
 <section>

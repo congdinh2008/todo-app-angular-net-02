@@ -5,6 +5,8 @@ import { routes } from './app.routes';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { AuthService } from '../services/auth/auth.service';
 import { authInterceptor } from '../interceptors/auth.interceptor';
+import { AUTH_SERVICE, PERMISSION_SERVICE } from '../constants/injection.constant';
+import { PermissionService } from '../services/permission/permission.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,8 +17,12 @@ export const appConfig: ApplicationConfig = {
       withFetch()
     ),
     {
-      provide: 'IAuthService',
+      provide: AUTH_SERVICE,
       useClass: AuthService,
     },
+    {
+      provide: PERMISSION_SERVICE,
+      useClass: PermissionService,
+    }
   ],
 };

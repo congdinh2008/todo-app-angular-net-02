@@ -1,1 +1,59 @@
-<h1>Contact Page</h1>
+<section class="contact bg-white p-4 flex">
+    <div class="contact-form w-1/2 p-4">
+        <h1 class="text-2xl font-bold">Contact Us</h1>
+        <form (ngSubmit)="onSubmit()" [formGroup]="formContact">
+            <div class="form-group mb-4">
+                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                <input id="name" type="text" formControlName="name"
+                    class="form-control w-full p-2 border boder-slate-200" placeholder="Enter your name">
+                <div *ngIf="formContact.get('name')?.invalid && (formContact.get('name')?.dirty || formContact.get('name')?.touched)"
+                    class="text-red-500 text-xs italic">
+                    Name is required.
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                <input id="email" type="text" formControlName="email"
+                    class="form-control w-full p-2 border boder-slate-200" placeholder="Enter your email">
+                <div *ngIf="formContact.get('email')?.invalid && (formContact.get('email')?.dirty || formContact.get('email')?.touched)"
+                    class="text-red-500 text-xs italic">
+                    Email is required.
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Country</label>
+                <select id="country" formControlName="country" class="form-control w-full p-2 border boder-slate-200"
+                    title="Select your country">
+                    <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+                </select>
+                <div *ngIf="formContact.get('country')?.invalid && (formContact.get('country')?.dirty || formContact.get('country')?.touched)"
+                    class="text-red-500 text-xs italic">
+                    Country is required.
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <label for="city" class="block text-gray-700 text-sm font-bold mb-2">City</label>
+                <select id="city" formControlName="city"
+                    class="form-control w-full p-2 border boder-slate-200 disabled:bg-slate-200 disabled:cursor-not-allowed"
+                    title="Select your city">
+                    <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                </select>
+                <div *ngIf="formContact.get('city')?.invalid && (formContact.get('city')?.dirty || formContact.get('city')?.touched)"
+                    class="text-red-500 text-xs italic">
+                    City is required.
+                </div>
+            </div>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit"
+                [disabled]="formContact.invalid">
+                Submit
+            </button>
+        </form>
+    </div>
+    <div class="map w-1/2 p-4">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.0430002674575!2d105.78037797606167!3d21.03096538770137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab4ca6239d09%3A0x250e489b303fb2ee!2zMTcgUC4gRHV5IFTDom4sIEThu4tjaCBW4buNbmcgSOG6rXUsIEPhuqd1IEdp4bqleSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1742529430439!5m2!1svi!2s"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+</section>
